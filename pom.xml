@@ -1,126 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-         https://maven.apache.org/xsd/maven-4.0.0.xsd">
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-
-    <!-- ✅ Spring Boot 3.x supports Java 21 -->
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.2</version>
-        <relativePath/>
-    </parent>
 
     <groupId>com.javaproject</groupId>
     <artifactId>database_service_project</artifactId>
     <version>0.0.5-SNAPSHOT</version>
     <packaging>jar</packaging>
 
+    <name>BoardGame</name>
+    <description>BoardGame Java Application</description>
+
+    <!-- ===================== -->
+    <!-- PROPERTIES -->
+    <!-- ===================== -->
     <properties>
-        <!-- ✅ Java 21 -->
         <java.version>21</java.version>
+        <maven.compiler.release>21</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jacoco.version>0.8.11</jacoco.version>
     </properties>
 
+    <!-- ===================== -->
+    <!-- DEPENDENCIES -->
+    <!-- ===================== -->
     <dependencies>
 
-        <!-- Web -->
+        <!-- Example dependency -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <version>3.2.1</version>
         </dependency>
 
-        <!-- Thymeleaf -->
+        <!-- JUnit 5 -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-
-        <!-- Security (Spring Security 6) -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-
-        <!-- Thymeleaf + Security (UPDATED for Boot 3.x) -->
-        <dependency>
-            <groupId>org.thymeleaf.extras</groupId>
-            <artifactId>thymeleaf-extras-springsecurity6</artifactId>
-        </dependency>
-
-        <!-- JPA -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-
-        <!-- H2 -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
-        <!-- Lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-
-        <!-- Tests -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.1</version>
             <scope>test</scope>
         </dependency>
 
     </dependencies>
 
+    <!-- ===================== -->
+    <!-- BUILD -->
+    <!-- ===================== -->
     <build>
         <plugins>
 
-            <!-- Spring Boot plugin -->
+            <!-- ===================== -->
+            <!-- MAVEN COMPILER PLUGIN -->
+            <!-- ===================== -->
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <release>${maven.compiler.release}</release>
+                </configuration>
             </plugin>
 
-            <!-- Jacoco -->
+            <!-- ===================== -->
+            <!-- JACOCO (JAVA 21 SAFE) -->
+            <!-- ===================== -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco.version}</version>
                 <executions>
+
+                    <!-- Attach JaCoCo agent -->
                     <execution>
+                        <id>prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
+
+                    <!-- Generate coverage report -->
                     <execution>
-                        <phase>verify</phase>
+                        <id>report</id>
+                        <phase>test</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
                     </execution>
+
                 </executions>
             </plugin>
 
         </plugins>
     </build>
-
-    <!-- Nexus Deployment (UNCHANGED) -->
-    <distributionManagement>
-        <repository>
-            <id>maven-releases</id>
-            <url>http://100.48.82.12:8081/repository/maven-releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>maven-snapshots</id>
-            <url>http://100.48.82.12:8081/repository/maven-snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
 
 </project>
